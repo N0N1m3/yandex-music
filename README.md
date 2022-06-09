@@ -9,9 +9,9 @@
 You can install or update Yandex Music API with:
 
 ```shell
-    npm install yandex-music
+npm install yandex-music
 ```
 or
 ```shell
-    yarn add yandex-music
+yarn add yandex-music
 ```
