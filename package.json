@@ -26,12 +26,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/N0N1m3/yandex-music.git"
+		"url": "git+https://github.com/n0n1m3/yandex-music.git"
 	},
 	"bugs": {
-		"url": "https://github.com/N0N1m3/yandex-music/issues"
+		"url": "https://github.com/n0n1m3/yandex-music/issues"
 	},
-	"homepage": "https://github.com/N0N1m3/yandex-music#readme",
+	"homepage": "https://github.com/n0n1m3/yandex-music#readme",
 	"husky": {
 		"hooks": {
 			"pre-commit": "commit"
