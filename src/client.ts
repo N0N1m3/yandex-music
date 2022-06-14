@@ -10,6 +10,7 @@ import { YandexMusicResponse } from "./interfaces";
 import { YandexMusicError } from "./exceptions";
 
 import { Account } from "./account";
+import { Track } from "./track";
 
 interface Config {
 	auth: {
@@ -36,6 +37,7 @@ export class YandexMusicClient {
 	public readonly request: Requset;
 
 	public readonly account: Account;
+	public readonly track: Track
 
 	constructor(
 		public readonly token: string,
@@ -46,7 +48,9 @@ export class YandexMusicClient {
 
 		this.request.setAuthorization();
 		this.request.setLanguage(this.lang);
+
 		this.account = new Account(this);
+		this.track = new Track(this)
 	}
 
 	public static async get(config: Config) {
