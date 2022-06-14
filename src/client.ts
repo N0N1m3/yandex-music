@@ -1,20 +1,90 @@
-import { Languages, Requset as YandexMusicRequest } from "./request";
+import { URLSearchParams as qs } from "url";
+import { AxiosInstance } from "axios";
+
+import { baseClient, Languages, Requset } from "./request";
+
+import { AccountStatus } from "./account/status.account";
+
+import { YandexMusicResponse } from "./interfaces";
+
+import { YandexMusicError } from "./exceptions";
 
 import { Account } from "./account";
+import { Track } from "./track";
+
+interface Config {
+	auth: {
+		type: "LOGIN" | "TOKEN";
+		username?: string;
+		password?: string;
+		token?: string;
+	};
+	language: keyof typeof Languages;
+}
+
+interface Auth {
+	access_token: string;
+	expires_in?: number;
+	token_type?: string;
+	uid: number;
+}
+
+type Status = YandexMusicResponse<AccountStatus>;
 
 export class YandexMusicClient {
 	private readonly url: string = "https://api.music.yandex.net:443";
 
-	public readonly request: YandexMusicRequest;
+	public readonly request: Requset;
+
 	public readonly account: Account;
+	public readonly track: Track
 
 	constructor(
 		public readonly token: string,
-		public readonly lang: keyof typeof Languages,
+		public readonly uid: number,
+		public readonly lang: keyof typeof Languages
 	) {
-		this.request = new YandexMusicRequest(this, this.url);
+		this.request = new Requset(this, this.url);
+
 		this.request.setAuthorization();
-		this.request.setLanguage(lang);
+		this.request.setLanguage(this.lang);
+
 		this.account = new Account(this);
+		this.track = new Track(this)
+	}
+
+	public static async get(config: Config) {
+		const { auth } = config;
+		const { username, password, token } = auth;
+
+		const api: AxiosInstance = baseClient("https://api.music.yandex.net:443");
+		const init: AxiosInstance = baseClient("https://oauth.yandex.ru:443");
+
+		if (auth.type === "TOKEN" && token) {
+			const headers = { Authorization: `OAuth ${token}` };
+			const account = await api.get<Status>("/account/status", { headers });
+			return {
+				uid: account["data"]["result"]["account"]["uid"],
+				language: config.language,
+				token: token,
+			};
+		} else if (config.auth.type === "LOGIN" && username && password) {
+			const headers = { "Content-Type": "application/x-www-form-urlencoded" };
+			const params = new qs({
+				grant_type: "password",
+				client_id: "23cabbbdc6cd418abb4b39c32c41195d",
+				client_secret: "53bc75238f0c4d08a118e51fe9203300",
+				username: username,
+				password: password,
+			});
+
+			const { data } = await init.post<Auth>("token", { headers, params });
+
+			return {
+				uid: data["uid"],
+				language: config.language,
+				token: data["access_token"],
+			};
+		} else throw new YandexMusicError("No auth crenditials provided");
 	}
 }
