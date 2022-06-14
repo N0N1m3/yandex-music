@@ -1,5 +1,7 @@
 import { YandexMusicClient } from "../client";
 import { log } from "../decorators/log.decorator";
+import { Languages } from "../request";
+import { AccountExperiments } from "./experiments.account";
 import { AccountSettings, AccountSettingsUpdate } from "./settings.account";
 import { AccountStatus } from "./status.account";
 
@@ -31,5 +33,27 @@ export class Account {
 	@log()
 	public async update(data: Partial<AccountSettingsUpdate>): Promise<AccountSettings> {
 		return await this.client.request.post<AccountSettings>("/account/settings", null, data);
+	}
+
+	/**
+	 * Getting the values of experimental account functions.
+	 * @returns State of experimental functions.
+	 */
+	@log()
+	public async experiments(): Promise<AccountExperiments> {
+		return await this.client.request.post<AccountExperiments>("/account/experiments", null);
+	}
+
+	/**
+	 * Activation of the promo code.
+	 * @param {any} data  
+	 * code: Promo code.
+	 * 
+	 * language: API response language in ISO 639-1.
+	 * @returns Информация об активации промо-кода
+	 */
+	@log()
+	public async promo(data: {code: any, language: keyof typeof Languages}): Promise<AccountExperiments> {
+		return await this.client.request.post<AccountExperiments>("/account/consume-promo-code", null, data);
 	}
 }
