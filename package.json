@@ -1,6 +1,6 @@
 {
 	"name": "yandex-music",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "N0N1m3",
 	"description": "Creative and progressive Node.js framework for applications that interact with yandex music",
 	"license": "GPL-3.0-only",
@@ -38,7 +38,8 @@
 		}
 	},
 	"dependencies": {
-		"axios": "^0.27.2"
+		"axios": "^0.27.2",
+		"ts-node": "^10.8.1"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.3.1",

@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"target": "ES2017",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"downlevelIteration": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "node",
+		"strict": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*.ts", "**/*.spec.ts"],
+	"exclude": ["dist", "node_modules"]
+}
