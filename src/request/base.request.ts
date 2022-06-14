@@ -31,7 +31,7 @@ export enum Languages {
 
 type data = Record<string, any> | null;
 
-type method = "GET" | "POST";
+type method = "GET" | "POST" | "DIRECT_LINK";
 
 export class Requset {
 	protected readonly axios: AxiosInstance;
@@ -98,6 +98,7 @@ export class Requset {
 		try {
 			if (type === "GET") response = await this.axios.get<YandexMusicResponse<T>>(url, config);
 			else if (type === "POST") response = await this.axios.post<YandexMusicResponse<T>>(url, data, config);
+			else if (type === "DIRECT_LINK") return (await axios.get(url, config))['data']
 		} catch (e) {
 			if (e instanceof AxiosError) {
 				const { message } = e;
@@ -114,11 +115,16 @@ export class Requset {
 	}
 
 	public async get<T>(url: string, params: data = null): Promise<T> {
-		return await this.wrapper<T>("GET", url, params);
+		return await this.wrapper<T>("GET", url, null, params);
 	}
 
 	public async post<T>(url: string, data: data = null, params: data = null): Promise<T> {
 		return await this.wrapper<T>("POST", url, data, params);
+	}
+
+	public async directLink<T>(url: string, params: data): Promise<T> {
+		console.log(url)
+		return await this.wrapper<T>("DIRECT_LINK", url, null, params)
 	}
 }
 
