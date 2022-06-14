@@ -1,14 +1,23 @@
 import { expect } from "chai";
 
+import { AccountSettings, AccountStatus } from "./__mock__";
+
 import { YandexMusicClient } from "../../src";
 
 import { token } from "../token";
 
-import { AccountSettings, AccountStatus } from "./__mock__";
+let client: YandexMusicClient;
+
+before(async () => {
+	const config = await YandexMusicClient.get({
+		auth: { type: "TOKEN", token },
+		language: "ru",
+	});
+
+	client = new YandexMusicClient(config.token, config.uid, config.language);
+});
 
 describe("Account tests", () => {
-	const client = new YandexMusicClient(token, "ru");
-
 	describe("Account status tests", () => {
 		it("Should return account status", async () => {
 			const status = await client.account.status();
@@ -20,7 +29,7 @@ describe("Account tests", () => {
 		});
 	});
 
-	describe("Account settings tests", () => {
+	describe("Account settings tests", async () => {
 		beforeEach(async () => {
 			await client.account.update({
 				userMusicVisibility: "PUBLIC",
@@ -57,7 +66,7 @@ describe("Account tests", () => {
 
 			const account_settings = AccountSettings;
 			account_settings["modified"] = settings["modified"];
-      AccountSettings["userMusicVisibility"] = "PUBLIC";
+			AccountSettings["userMusicVisibility"] = "PUBLIC";
 			AccountSettings["userSocialVisibility"] = "PUBLIC";
 			account_settings["theme"] = "black";
 
