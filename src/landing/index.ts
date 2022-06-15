@@ -9,6 +9,7 @@ import { LandingInterface } from "./get.landing";
 import { NewPlaylistsInterface } from "./new-playlists.landing";
 
 import { NewRealesesInterface } from "./new-releases.landing";
+import { PodcastInterface } from "./podcasts.landing";
 
 type block =
 	| "personalplaylists"
@@ -61,5 +62,14 @@ export class Landing {
 	@log()
 	public async playlists(): Promise<NewPlaylistsInterface> {
 		return await this.client.request.get<NewPlaylistsInterface>(`/landing3/new-playlists`);
+	}
+  
+  /**
+	 * Getting podcasts from the landing page.
+	 * @returns List of podcasts.
+	 */
+	@log()
+	public async podcasts(): Promise<PodcastInterface> {
+		return await this.client.request.get<PodcastInterface>(`/landing3/podcasts`);
 	}
 }
