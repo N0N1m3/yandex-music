@@ -14,6 +14,7 @@ import { Track } from "./track";
 import { Artist } from "./artist";
 import { Genre } from "./genre";
 import { Users } from "./users";
+import { Landing } from "./landing";
 
 interface Config {
 	auth: {
@@ -43,6 +44,7 @@ export class YandexMusicClient {
 	public readonly track: Track;
 	public readonly artist: Artist
 	public readonly users: Users
+	public readonly landing: Landing;
 
 	constructor(
 		public readonly token: string,
@@ -58,6 +60,7 @@ export class YandexMusicClient {
 		this.track = new Track(this)
 		this.artist = new Artist(this)
 		this.users = new Users(this)
+		this.landing = new Landing(this)
 	}
 
 	public static async get(config: Config) {
