@@ -43,9 +43,9 @@ export class Track {
 	 * @returns Track or Tracks.
 	 */
 	@log()
-	public async get(ids: number | Array<number>) {
+	public async get(ids: number | Array<number>): Promise<Array<TrackInterface>> {
 		const [url, params] = list("track", ids);
-		return await this.client.request.get<TrackInterface>(url, params);
+		return await this.client.request.get<Array<TrackInterface>>(url, params);
 	}
 
 	/**
