@@ -1,6 +1,10 @@
 {
 	"name": "yandex-music",
+<<<<<<< HEAD
 	"version": "1.4.0",
+=======
+	"version": "1.4.0",
+>>>>>>> dev
 	"author": "N0N1m3",
 	"description": "Creative and progressive Node.js framework for applications that interact with yandex music",
 	"license": "GPL-3.0-only",
