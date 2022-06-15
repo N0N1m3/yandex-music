@@ -95,3 +95,39 @@ interface Album {
 		index: number;
 	};
 }
+
+interface SocialLink {
+	title: string;
+	href: string;
+	type: string;
+	socialNetwork: string;
+}
+
+interface ArtistCounts {
+	tracks: number;
+	directAlbums: number;
+	alsoAlbums: number;
+	alsoTracks: number;
+}
+
+interface ArtistRatings {
+	week: number;
+	month: number;
+	day: number;
+}
+
+export interface Artist {
+	id: number;
+	name: string;
+	various: boolean;
+	composer: boolean;
+	cover: Cover;
+	genres: Array<string>;
+	ogImage: string;
+	noPicturesFromSearch: boolean;
+	counts: ArtistCounts;
+	available: boolean;
+	ratings: ArtistRatings;
+	links: Array<SocialLink>;
+	ticketsAvailable: boolean;
+}
