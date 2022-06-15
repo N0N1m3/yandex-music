@@ -11,6 +11,7 @@ import { YandexMusicError } from "./exceptions";
 
 import { Account } from "./account";
 import { Track } from "./track";
+import { Artist } from "./artist";
 
 interface Config {
 	auth: {
@@ -37,7 +38,8 @@ export class YandexMusicClient {
 	public readonly request: Requset;
 
 	public readonly account: Account;
-	public readonly track: Track
+	public readonly track: Track;
+	public readonly artist: Artist
 
 	constructor(
 		public readonly token: string,
@@ -51,6 +53,7 @@ export class YandexMusicClient {
 
 		this.account = new Account(this);
 		this.track = new Track(this)
+		this.artist = new Artist(this)
 	}
 
 	public static async get(config: Config) {
