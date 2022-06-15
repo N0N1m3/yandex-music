@@ -1,3 +1,5 @@
+import { Artist } from "./artist";
+
 interface InvocationInfo {
 	hostname: string;
 	"req-id": string;
@@ -13,6 +15,14 @@ export interface Cover {
 	type: string;
 	uri: string;
 	prefix: string;
+}
+
+export interface Video {
+	title: string;
+	cover: string;
+	embedUrl: string;
+	provider: string;
+	providerVideoId: string;
 }
 
 export type CoverSize =
@@ -68,7 +78,7 @@ interface ArtistShort {
 	genres: Array<string>;
 }
 
-interface Album {
+export interface Album {
 	id: number;
 	title: string;
 	metaType: string;
@@ -130,4 +140,32 @@ export interface Artist {
 	ratings: ArtistRatings;
 	links: Array<SocialLink>;
 	ticketsAvailable: boolean;
+}
+
+interface PlaylistCover {
+	type: string;
+	dir: string;
+	version: string;
+	uri: string;
+	custom: boolean;
+}
+
+export interface Playlist {
+	uid: number;
+	kind: number;
+	title: string;
+	description: string;
+	descriptionFormatted: string;
+	cover: PlaylistCover;
+	trackCount: number;
+}
+
+export interface ArtistAddon extends Artist {
+	likesCount: string;
+	fullNames: Array<string>;
+	description: { text: string; uri: string };
+	countries: Array<string>;
+	initDate: string;
+	enWikipediaLink: string;
+	dbAliases: Array<string>;
 }
