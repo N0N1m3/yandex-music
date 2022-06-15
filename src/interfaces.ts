@@ -79,6 +79,7 @@ interface ArtistShort {
 export interface Album {
 	id: number;
 	title: string;
+	type?: string;
 	metaType: string;
 	contentWarning: string;
 	year: number;
