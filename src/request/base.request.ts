@@ -102,12 +102,17 @@ export class Requset {
 		} catch (e) {
 			if (e instanceof AxiosError) {
 				const { message } = e;
-				if (e.code === "401" || e.code === "403") throw new UnauthorizedError(message);
-				else if (e.code === "400") throw new BadRequestError(message);
-				else if (e.code === "404") throw new NotFoundError(message);
-				else if (e.code === "409" || e.code === "413") throw new NetworkError(message);
-				else if (e.code === "502") throw new NetworkError(message);
-				else throw new NetworkError(`${message} (${e.code!}): ${e.stack ? e.stack : "No additional info"}`);
+				const code = e.response?.status
+				
+				const response = `${e.response?.data?.error ? ": " + e.response?.data?.error?.message : ""}`
+				const error = `${message}${response}`
+
+				if (code === 401 || code === 403) throw new UnauthorizedError(message);
+				else if (code === 400) throw new BadRequestError(error);
+				else if (code === 404) throw new NotFoundError(message);
+				else if (code === 409 || code === 413) throw new NetworkError(message);
+				else if (code === 502) throw new NetworkError(message);
+				else throw new NetworkError(`${message} (${e.response?.status!}): ${response}`);
 			} else throw new YandexMusicError(`Unknown HTTP error. ${e as any}`);
 		}
 
