@@ -27,7 +27,7 @@ export class Artist {
 	 * @returns Information about the artist.
 	 */
 	@log()
-	public async info(id: number): Promise<Array<ArtistBriefInfo>> {
-		return await this.client.request.get<Array<ArtistBriefInfo>>(`/artists/${id}/brief-info`);
+	public async info(id: number): Promise<ArtistBriefInfo> {
+		return await this.client.request.get<ArtistBriefInfo>(`/artists/${id}/brief-info`);
 	}
 }
