@@ -56,4 +56,28 @@ export class Playlists {
 	public async delete(id: string, kind: string): Promise<string> {
 		return await this.client.request.post<string>(`/users/${id}/playlists/${kind}/delete`);
 	}
+
+  /**
+   * Renaming a playlist
+   * @param {string} id The unique ID of the owner.
+   * @param {string} kind The unique ID of the playlist.
+   * @param {string} value New name.
+   * @returns OK in success
+   */
+	@log()
+	public async name(id: string, kind: string, value: string): Promise<string> {
+		return await this.client.request.post<string>(`/users/${id}/playlists/${kind}/name`, null, {value});
+	}
+
+   /**
+   * Changing the visibility of the playlist.
+   * @param {string} id The unique ID of the owner.
+   * @param {string} kind The unique ID of the playlist.
+   * @param {string} value New visibility.
+   * @returns OK in success
+   */
+	@log()
+	public async visibility(id: string, kind: string, value: "public" | "private" = "public"): Promise<string> {
+		return await this.client.request.post<string>(`/users/${id}/playlists/${kind}/visibility`, null, {value});
+	}
 }
