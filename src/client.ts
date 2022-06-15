@@ -5,7 +5,7 @@ import { baseClient, Languages, Requset } from "./request";
 
 import { AccountStatus } from "./account/status.account";
 
-import { YandexMusicResponse } from "./interfaces";
+import { CoverSize, YandexMusicResponse } from "./interfaces";
 
 import { YandexMusicError } from "./exceptions";
 
@@ -86,5 +86,15 @@ export class YandexMusicClient {
 				token: data["access_token"],
 			};
 		} else throw new YandexMusicError("No auth crenditials provided");
+	}
+
+	/**
+	 * Loading the cover.
+	 * @param {string} uri Image uri
+	 * @param {CoverSize} size Image Size
+	 * @returns Buffer
+	 */
+	public async cover (uri: string, size: CoverSize): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null)
 	}
 }

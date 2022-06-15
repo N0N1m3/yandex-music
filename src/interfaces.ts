@@ -15,6 +15,13 @@ export interface Cover {
 	prefix: string;
 }
 
+export type CoverSize =
+	| "100x100"
+	| "200x200"
+	| "400x400"
+	| "500x500"
+	| "1000x1000";
+
 export interface Track {
 	id: string;
 	realId: string;
