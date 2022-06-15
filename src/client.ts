@@ -12,6 +12,7 @@ import { YandexMusicError } from "./exceptions";
 import { Account } from "./account";
 import { Track } from "./track";
 import { Artist } from "./artist";
+import { Genre } from "./genre";
 
 interface Config {
 	auth: {
@@ -108,5 +109,13 @@ export class YandexMusicClient {
 	 */
 	 public async video (url: string): Promise<Buffer> {
 		return await this.request.directLink<Buffer>(url, null)
+	}
+
+	/**
+	 * Getting genres of music.
+	 * @returns Genres of music
+	 */
+	 public async genres (url: string): Promise<Array<Genre>> {
+		return await this.request.get<Array<Genre>>(url)
 	}
 }
