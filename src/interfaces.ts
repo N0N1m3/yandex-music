@@ -1,5 +1,3 @@
-import { Artist } from "./artist";
-
 interface InvocationInfo {
 	hostname: string;
 	"req-id": string;
