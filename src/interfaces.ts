@@ -141,7 +141,7 @@ export interface Artist {
 	ticketsAvailable: boolean;
 }
 
-interface PlaylistCover {
+export interface PlaylistCover {
 	type: string;
 	dir: string;
 	version: string;
