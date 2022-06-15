@@ -40,19 +40,25 @@ describe("Artist tests", () => {
 		});
 	});
 
-  describe("Artist brief-info get tests", () => {
+	describe("Artist brief-info get tests", () => {
+		it("Should not to be empty", async () => {
+			const info = await client.artist.info(5781113);
 
-    it("Should not to be empty", async () => {
-      const info = await client.artist.info(5781113)
+			expect(info).to.be.not.empty;
+		});
 
-      expect(info).to.be.not.empty
-    })
+		it("Should contain artist name", async () => {
+			const info = await client.artist.info(5781113);
 
-    it("Should contain artist name", async () => {
-      const info = await client.artist.info(5781113)
+			expect(info["artist"]["name"]).to.be.equal("MORGENSHTERN");
+		});
+	});
 
-      expect(info["artist"]["name"]).to.be.equal("MORGENSHTERN")
-    })
-    
-  })
+	describe("Artist direct-albums get tests", () => {
+		it("Should not be empty", async () => {
+			const albums = await client.artist.albums(5781113);
+
+			expect(albums["albums"]).to.be.not.empty;
+		});
+	});
 });
