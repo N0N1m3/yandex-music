@@ -1,6 +1,9 @@
 import { YandexMusicClient } from "../client";
 
 import { log } from "../decorators/log.decorator";
+
+import { ChartInterface } from "./chart.landing";
+
 import { LandingInterface } from "./get.landing";
 
 type block =
@@ -27,5 +30,14 @@ export class Landing {
 	public async get(blocks: block): Promise<LandingInterface> {
 		const params = { blocks };
 		return await this.client.request.get<LandingInterface>(`/landing3`, params);
+	}
+  
+  /**
+	 * Getting the chart.
+	 * @returns Chart.
+	 */
+	@log()
+	public async chart(): Promise<ChartInterface> {
+		return await this.client.request.get<ChartInterface>(`/landing3/chart`);
 	}
 }
