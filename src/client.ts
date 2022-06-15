@@ -5,12 +5,13 @@ import { baseClient, Languages, Requset } from "./request";
 
 import { AccountStatus } from "./account/status.account";
 
-import { YandexMusicResponse } from "./interfaces";
+import { CoverSize, YandexMusicResponse } from "./interfaces";
 
 import { YandexMusicError } from "./exceptions";
 
 import { Account } from "./account";
 import { Track } from "./track";
+import { Artist } from "./artist";
 
 interface Config {
 	auth: {
@@ -37,7 +38,8 @@ export class YandexMusicClient {
 	public readonly request: Requset;
 
 	public readonly account: Account;
-	public readonly track: Track
+	public readonly track: Track;
+	public readonly artist: Artist
 
 	constructor(
 		public readonly token: string,
@@ -51,6 +53,7 @@ export class YandexMusicClient {
 
 		this.account = new Account(this);
 		this.track = new Track(this)
+		this.artist = new Artist(this)
 	}
 
 	public static async get(config: Config) {
@@ -86,5 +89,24 @@ export class YandexMusicClient {
 				token: data["access_token"],
 			};
 		} else throw new YandexMusicError("No auth crenditials provided");
+	}
+
+	/**
+	 * Loading the track cover.
+	 * @param {string} uri Image uri
+	 * @param {CoverSize} size Image Size
+	 * @returns Buffer
+	 */
+	public async cover (uri: string, size: CoverSize): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null)
+	}
+
+	/**
+	 * Loading the track video.
+	 * @param {string} url Video uri
+	 * @returns Buffer
+	 */
+	 public async video (url: string): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(url, null)
 	}
 }

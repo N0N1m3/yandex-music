@@ -18,51 +18,54 @@ before(async () => {
 });
 
 describe("Track tests", () => {
+	describe("Supplement tracks", () => {
+		it("Should return supplement track with lyrics", async () => {
+			const supplement = await client.track.supplement("67155218");
 
-  describe("Supplement tracks", () => {
+			expect(supplement).to.be.deep.equal(SupplementWithLyrics);
+		});
 
-    it("Should return supplement track with lyrics", async () => {
-      const supplement = await client.track.supplement("67155218")
+		it("Should return supplement track without lyrics", async () => {
+			const supplement = await client.track.supplement("55251399");
 
-      expect(supplement).to.be.deep.equal(SupplementWithLyrics)
-    })
+			expect(supplement).to.be.deep.equal(SupplementWithoutLyrics);
+		});
+	});
 
-    it("Should return supplement track without lyrics", async () => {
-      const supplement = await client.track.supplement("55251399")
+	describe("Similar tracks to track", () => {
+		it("Should return similar tracks to track", async () => {
+			const similar = await client.track.similar("67155218");
 
-      expect(supplement).to.be.deep.equal(SupplementWithoutLyrics)
-    })
-  })
+			similar["similarTracks"].forEach(track => track["storageDir"] = "");
+			similar["track"]["storageDir"] = "";
 
-  describe("Similar tracks to track", () => {
+      SimilarTracks['track']['albums'][8]['likesCount'] = similar['track']['albums'][8]['likesCount']
 
-    it("Should return similar tracks to track", async () => {
-      const similar = await client.track.similar("67155218")
+			expect(similar["similarTracks"]).to.be.deep.equal(SimilarTracks["similarTracks"]);
+		});
 
-      similar['similarTracks'].forEach(track => track['storageDir'] = "")
-      similar['track']['storageDir'] = ""
+		it("Should return 10 simillar tracks to track", async () => {
+			const similar = await client.track.similar("67155218");
 
-      expect(similar).to.be.deep.equal(SimilarTracks)
-    })
+			expect(similar["similarTracks"]).to.be.length(10);
+		});
+	});
 
-    it("Should return 10 simillar tracks to track", async () => {
-      const similar = await client.track.similar("67155218")
+	describe("Get tracks", () => {
+		it("Should get one track", async () => {
+			const track = await client.track.get(67155218);
 
-      expect(similar['similarTracks']).to.be.length(10)
-    })
-  })
+      OneTrack[0]['albums'][0]['likesCount'] = track[0]['albums'][0]['likesCount']
 
-  describe("Get tracks", () => {
-    it("Should get one track", async () => {
-      const track = await client.track.get(67155218)
+			expect(track).to.be.deep.equal(OneTrack);
+		});
 
-      expect(track).to.be.deep.equal(OneTrack)
-    })
+		it("Should get two track", async () => {
+			const track = await client.track.get([67155218, 55251399]);
 
-    it("Should get two track", async () => {
-      const track = await client.track.get([67155218, 55251399])
+      track.forEach((track, i) => TwoTracks[i]['albums'][0]['likesCount'] = track['albums'][0]['likesCount'])
 
-      expect(track).to.be.deep.equal(TwoTracks)
-    })
-  })
-})
+			expect(track).to.be.deep.equal(TwoTracks);
+		});
+	});
+});

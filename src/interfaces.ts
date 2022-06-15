@@ -15,6 +15,21 @@ export interface Cover {
 	prefix: string;
 }
 
+export interface Video {
+	title: string;
+	cover: string;
+	embedUrl: string;
+	provider: string;
+	providerVideoId: string;
+}
+
+export type CoverSize =
+	| "100x100"
+	| "200x200"
+	| "400x400"
+	| "500x500"
+	| "1000x1000";
+
 export interface Track {
 	id: string;
 	realId: string;
@@ -61,9 +76,10 @@ interface ArtistShort {
 	genres: Array<string>;
 }
 
-interface Album {
+export interface Album {
 	id: number;
 	title: string;
+	type?: string;
 	metaType: string;
 	contentWarning: string;
 	year: number;
@@ -87,4 +103,68 @@ interface Album {
 		volume: number;
 		index: number;
 	};
+}
+
+interface SocialLink {
+	title: string;
+	href: string;
+	type: string;
+	socialNetwork: string;
+}
+
+interface ArtistCounts {
+	tracks: number;
+	directAlbums: number;
+	alsoAlbums: number;
+	alsoTracks: number;
+}
+
+interface ArtistRatings {
+	week: number;
+	month: number;
+	day: number;
+}
+
+export interface Artist {
+	id: number;
+	name: string;
+	various: boolean;
+	composer: boolean;
+	cover: Cover;
+	genres: Array<string>;
+	ogImage: string;
+	noPicturesFromSearch: boolean;
+	counts: ArtistCounts;
+	available: boolean;
+	ratings: ArtistRatings;
+	links: Array<SocialLink>;
+	ticketsAvailable: boolean;
+}
+
+interface PlaylistCover {
+	type: string;
+	dir: string;
+	version: string;
+	uri: string;
+	custom: boolean;
+}
+
+export interface Playlist {
+	uid: number;
+	kind: number;
+	title: string;
+	description: string;
+	descriptionFormatted: string;
+	cover: PlaylistCover;
+	trackCount: number;
+}
+
+export interface ArtistAddon extends Artist {
+	likesCount: string;
+	fullNames: Array<string>;
+	description: { text: string; uri: string };
+	countries: Array<string>;
+	initDate: string;
+	enWikipediaLink: string;
+	dbAliases: Array<string>;
 }
