@@ -89,12 +89,21 @@ export class YandexMusicClient {
 	}
 
 	/**
-	 * Loading the cover.
+	 * Loading the track cover.
 	 * @param {string} uri Image uri
 	 * @param {CoverSize} size Image Size
 	 * @returns Buffer
 	 */
 	public async cover (uri: string, size: CoverSize): Promise<Buffer> {
 		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null)
+	}
+
+	/**
+	 * Loading the track video.
+	 * @param {string} url Video uri
+	 * @returns Buffer
+	 */
+	 public async video (url: string): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(url, null)
 	}
 }
