@@ -39,4 +39,20 @@ describe("Artist tests", () => {
 			expect(artist).to.be.deep.equal(TwoArtists);
 		});
 	});
+
+  describe("Artist brief-info get tests", () => {
+
+    it("Should not to be empty", async () => {
+      const info = await client.artist.info(5781113)
+
+      expect(info).to.be.not.empty
+    })
+
+    it("Should contain artist name", async () => {
+      const info = await client.artist.info(5781113)
+
+      expect(info["artist"]["name"]).to.be.equal("MORGENSHTERN")
+    })
+    
+  })
 });
