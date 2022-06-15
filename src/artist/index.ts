@@ -6,6 +6,7 @@ import { Artist as ArtistInterface } from "../interfaces";
 
 import { list } from "../utils";
 import { ArtistBriefInfo } from "./brief-info.artist";
+import { ArtistDirectAlbums } from "./direct-albums.artist";
 
 export class Artist {
 	constructor(private readonly client: YandexMusicClient) {}
@@ -23,11 +24,25 @@ export class Artist {
 
   /**
 	 * Getting information about the artist.
-	 * @param {number} id The unique identifier of the artis.
+	 * @param {number} id The unique identifier of the artist.
 	 * @returns Information about the artist.
 	 */
 	@log()
 	public async info(id: number): Promise<ArtistBriefInfo> {
 		return await this.client.request.get<ArtistBriefInfo>(`/artists/${id}/brief-info`);
+	}
+
+  /**
+	 * Getting artist albums.
+	 * @param {number} id The unique identifier of the artist.
+   * @param {number} page Page number.
+   * @param {number} page_size The number of albums per page.
+   * @param {string} sort_by Parameter for sorting.
+	 * @returns Artist's Album list page.
+	 */
+	@log()
+	public async albums(id: number, page: number = 0, page_size: number = 0, sort_by: string = "year"): Promise<ArtistDirectAlbums> {
+    const params = {page, page_size, sort_by}
+		return await this.client.request.get<ArtistDirectAlbums>(`/artists/${id}/direct-albums`, params);
 	}
 }
