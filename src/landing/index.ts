@@ -5,6 +5,9 @@ import { log } from "../decorators/log.decorator";
 import { ChartInterface } from "./chart.landing";
 
 import { LandingInterface } from "./get.landing";
+
+import { NewPlaylistsInterface } from "./new-playlists.landing";
+
 import { NewRealesesInterface } from "./new-releases.landing";
 
 type block =
@@ -44,10 +47,19 @@ export class Landing {
   
   /**
 	 * Getting a complete list of all new releases (albums).
-	 * @returns Список новых альбомов.
+	 * @returns List of new albums.
 	 */
 	@log()
 	public async releases(): Promise<NewRealesesInterface> {
 		return await this.client.request.get<NewRealesesInterface>(`/landing3/new-releases`);
+	}
+  
+  /**
+	 * Getting a complete list of all new playlists.
+	 * @returns A list of new playlists.
+	 */
+	@log()
+	public async playlists(): Promise<NewPlaylistsInterface> {
+		return await this.client.request.get<NewPlaylistsInterface>(`/landing3/new-playlists`);
 	}
 }
