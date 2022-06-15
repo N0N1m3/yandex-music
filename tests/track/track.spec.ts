@@ -39,9 +39,9 @@ describe("Track tests", () => {
 			similar["similarTracks"].forEach(track => track["storageDir"] = "");
 			similar["track"]["storageDir"] = "";
 
-      SimilarTracks['track']['albums'][0]['likesCount'] = similar['track']['albums'][0]['likesCount']
+      SimilarTracks['track']['albums'][8]['likesCount'] = similar['track']['albums'][8]['likesCount']
 
-			expect(similar["similarTracks"][8]).to.be.deep.equal(SimilarTracks["similarTracks"][8]);
+			expect(similar["similarTracks"]).to.be.deep.equal(SimilarTracks["similarTracks"]);
 		});
 
 		it("Should return 10 simillar tracks to track", async () => {
