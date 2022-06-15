@@ -5,6 +5,7 @@ import { log } from "../decorators/log.decorator";
 import { ChartInterface } from "./chart.landing";
 
 import { LandingInterface } from "./get.landing";
+import { NewRealesesInterface } from "./new-releases.landing";
 
 type block =
 	| "personalplaylists"
@@ -39,5 +40,14 @@ export class Landing {
 	@log()
 	public async chart(): Promise<ChartInterface> {
 		return await this.client.request.get<ChartInterface>(`/landing3/chart`);
+	}
+  
+  /**
+	 * Getting a complete list of all new releases (albums).
+	 * @returns Список новых альбомов.
+	 */
+	@log()
+	public async releases(): Promise<NewRealesesInterface> {
+		return await this.client.request.get<NewRealesesInterface>(`/landing3/new-releases`);
 	}
 }
