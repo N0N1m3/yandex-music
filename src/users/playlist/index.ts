@@ -101,7 +101,7 @@ export class Playlists {
 	 * @returns Modified playlist.
 	 */
 	@log()
-	private async change(id: string, kind: string, diff: string, revision: number = 1): Promise<Omit<PlaylistInterface, "tracks">> {
+	private async change(id: string, kind: string, diff: string, revision = 1): Promise<Omit<PlaylistInterface, "tracks">> {
 		const params = { kind: kind, revision: revision, diff: '"' + diff + '"' };
 		return await this.client.request.post<any>(`/users/${id}/playlists/${kind}/change`, null, params);
 	}
@@ -116,7 +116,7 @@ export class Playlists {
 	 * @returns Modified playlist.
 	 */
 	@log()
-	public async insert(id: string, kind: string, tracks: Array<{ id: string; albumId: string }>, at: number = 0, revision: number = 1): Promise<Omit<PlaylistInterface, "tracks">> {
+	public async insert(id: string, kind: string, tracks: Array<{ id: string; albumId: string }>, at = 0, revision = 1): Promise<Omit<PlaylistInterface, "tracks">> {
 		const operation = Difference.insert(at, tracks);
 		return await this.change(id, kind, operation, revision);
 	}
@@ -131,7 +131,7 @@ export class Playlists {
 	 * @returns Modified playlist.
 	 */
 	@log()
-	public async remove(id: string, kind: string, from: number, to: number, revision: number = 1): Promise<Omit<PlaylistInterface, "tracks">> {
+	public async remove(id: string, kind: string, from: number, to: number, revision = 1): Promise<Omit<PlaylistInterface, "tracks">> {
 		const operation = Difference.delete(from, to);
 		return await this.change(id, kind, operation, revision);
 	}

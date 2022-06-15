@@ -118,7 +118,7 @@ export class YandexMusicClient {
 	 * Getting genres of music.
 	 * @returns Genres of music
 	 */
-	 public async genres (url: string): Promise<Array<Genre>> {
+	public async genres (url: string): Promise<Array<Genre>> {
 		return await this.request.get<Array<Genre>>(url)
 	}
 }

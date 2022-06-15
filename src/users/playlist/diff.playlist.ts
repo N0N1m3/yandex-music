@@ -30,7 +30,7 @@ export class Difference {
 	public static insert(at: number, tracks: Array<Track>): string {
 		const operation: Insert = { op: Operations.INSERT, at: at, tracks: [] };
 
-		for (let { id, albumId } of tracks) operation["tracks"].push({ id, albumId });
+		for (const { id, albumId } of tracks) operation["tracks"].push({ id, albumId });
 
 		return JSON.stringify(operation);
 	}

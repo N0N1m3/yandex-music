@@ -41,7 +41,7 @@ export class Artist {
 	 * @returns Artist's Album list page.
 	 */
 	@log()
-	public async albums(id: number, page: number = 0, page_size: number = 0, sort_by: string = "year"): Promise<ArtistDirectAlbums> {
+	public async albums(id: number, page = 0, page_size = 0, sort_by = "year"): Promise<ArtistDirectAlbums> {
     const params = {page, page_size, sort_by}
 		return await this.client.request.get<ArtistDirectAlbums>(`/artists/${id}/direct-albums`, params);
 	}
