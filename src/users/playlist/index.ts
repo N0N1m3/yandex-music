@@ -80,4 +80,14 @@ export class Playlists {
 	public async visibility(id: string, kind: string, value: "public" | "private" = "public"): Promise<string> {
 		return await this.client.request.post<string>(`/users/${id}/playlists/${kind}/visibility`, null, {value});
 	}
+
+  /**
+   * Getting a playlists.
+   * @param {string} id The unique ID of the user who owns the playlist.
+   * @returns Playlist List.
+   */
+	@log()
+	public async list(id: string): Promise<Array<PlaylistInterface>> {
+		return await this.client.request.get<Array<PlaylistInterface>>(`/users/${id}/playlists/list`);
+	}
 }
