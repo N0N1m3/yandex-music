@@ -5,6 +5,7 @@ import { log } from "../decorators/log.decorator";
 import { Artist as ArtistInterface } from "../interfaces";
 
 import { list } from "../utils";
+import { ArtistBriefInfo } from "./brief-info.artist";
 
 export class Artist {
 	constructor(private readonly client: YandexMusicClient) {}
@@ -18,5 +19,15 @@ export class Artist {
 	public async get(ids: number | Array<number>): Promise<Array<ArtistInterface>> {
 		const [url, params] = list("artist", ids);
 		return await this.client.request.get<Array<ArtistInterface>>(url, params);
+	}
+
+  /**
+	 * Getting information about the artist.
+	 * @param {number} id The unique identifier of the artis.
+	 * @returns Information about the artist.
+	 */
+	@log()
+	public async info(id: number): Promise<Array<ArtistBriefInfo>> {
+		return await this.client.request.get<Array<ArtistBriefInfo>>(`/artists/${id}/brief-info`);
 	}
 }
