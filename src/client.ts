@@ -44,7 +44,7 @@ export class YandexMusicClient {
 	constructor(
 		public readonly token: string,
 		public readonly uid: number,
-		public readonly lang: keyof typeof Languages
+		public readonly lang: keyof typeof Languages,
 	) {
 		this.request = new Requset(this, this.url);
 
@@ -106,7 +106,7 @@ export class YandexMusicClient {
 	 * @param {string} url Video uri
 	 * @returns Buffer
 	 */
-	 public async video (url: string): Promise<Buffer> {
+	public async video (url: string): Promise<Buffer> {
 		return await this.request.directLink<Buffer>(url, null)
 	}
 }

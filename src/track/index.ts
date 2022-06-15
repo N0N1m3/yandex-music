@@ -56,7 +56,7 @@ export class Track {
 	@log()
 	public async downloadInfo(id: number): Promise<TrackDownloadInfo> {
 		return await this.client.request.get<TrackDownloadInfo>(
-			`/tracks/${id}/download-info`
+			`/tracks/${id}/download-info`,
 		);
 	}
 

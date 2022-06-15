@@ -123,7 +123,6 @@ export class Requset {
 	}
 
 	public async directLink<T>(url: string, params: data): Promise<T> {
-		console.log(url)
 		return await this.wrapper<T>("DIRECT_LINK", url, null, params)
 	}
 }
