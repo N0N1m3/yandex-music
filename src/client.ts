@@ -17,6 +17,9 @@ import { Users } from "./users";
 import { Landing } from "./landing";
 import { Feed } from "./feed";
 import { Albums } from "./albums";
+import { Rotor } from "./rotor";
+import { log } from "./decorators/log.decorator";
+import { SeacrhResult, SearchSuggest, SearchType } from "./search";
 
 interface Config {
 	auth: {
@@ -37,6 +40,13 @@ interface Auth {
 
 type Status = YandexMusicResponse<AccountStatus>;
 
+interface Settings {
+	inAppProducts: Array<any>,
+	nativeProducts: Array<any>,
+	webPaymentUrl: string,
+	promoCodesEnabled: boolean
+}
+
 export class YandexMusicClient {
 	private readonly url: string = "https://api.music.yandex.net:443";
 
@@ -44,11 +54,12 @@ export class YandexMusicClient {
 
 	public readonly account: Account;
 	public readonly track: Track;
-	public readonly artist: Artist
-	public readonly users: Users
+	public readonly artist: Artist;
+	public readonly users: Users;
 	public readonly landing: Landing;
 	public readonly feed: Feed;
-	public readonly albums: Albums
+	public readonly albums: Albums;
+	public readonly rotor: Rotor;
 
 	constructor(
 		public readonly token: string,
@@ -61,14 +72,16 @@ export class YandexMusicClient {
 		this.request.setLanguage(this.lang);
 
 		this.account = new Account(this);
-		this.track = new Track(this)
-		this.artist = new Artist(this)
-		this.users = new Users(this)
-		this.landing = new Landing(this)
-		this.feed = new Feed(this)
-		this.albums = new Albums(this)
+		this.track = new Track(this);
+		this.artist = new Artist(this);
+		this.users = new Users(this);
+		this.landing = new Landing(this);
+		this.feed = new Feed(this);
+		this.albums = new Albums(this);
+		this.rotor = new Rotor(this);
 	}
 
+	@log()
 	public static async get(config: Config) {
 		const { auth } = config;
 		const { username, password, token } = auth;
@@ -110,8 +123,9 @@ export class YandexMusicClient {
 	 * @param {CoverSize} size Image Size
 	 * @returns Buffer
 	 */
-	public async cover (uri: string, size: CoverSize): Promise<Buffer> {
-		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null)
+	@log()
+	public async cover(uri: string, size: CoverSize): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null);
 	}
 
 	/**
@@ -119,15 +133,106 @@ export class YandexMusicClient {
 	 * @param {string} url Video uri
 	 * @returns Buffer
 	 */
+<<<<<<< HEAD
 	public async video (url: string): Promise<Buffer> {
 		return await this.request.directLink<Buffer>(url, null)
+=======
+	@log()
+	public async video(url: string): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(url, null);
+>>>>>>> dev
 	}
 
 	/**
 	 * Getting genres of music.
 	 * @returns Genres of music
 	 */
+<<<<<<< HEAD
 	public async genres (url: string): Promise<Array<Genre>> {
 		return await this.request.get<Array<Genre>>(url)
+=======
+	@log()
+	public async genres(url: string): Promise<Array<Genre>> {
+		return await this.request.get<Array<Genre>>(url);
+	}
+
+	/**
+	 * Receiving purchase offers. There are no required parameters.
+	 * @returns Information about the products offered if the account is valid.
+	 */
+	@log()
+	public async settings(): Promise<Settings> {
+		return await this.request.get<Settings>("/settings");
+	}
+
+	/**
+	 * Performing search by query and type, obtaining results.
+	 * @param {string} text The text of the request.
+	 * @param {boolean} nocorrect If аalse, the erroneous request will be corrected.
+	 * @param {SearchType} type Among what type to search (track, playlist, album, artist, user, podcast, all).
+	 * @param {number} page Page number.
+	 * @param {boolean} playlist_in_best Whether to give out playlists is the best search option.
+	 * @returns Search results.
+	 */
+	@log()
+	public async search(text: string, nocorrect: boolean = false, type: SearchType = "all", page: number = 0, playlist_in_best: boolean = true): Promise<SeacrhResult> {
+		const params = { text, nocorrect, type, page, 'playlist-in-best': playlist_in_best };
+		return await this.request.get<SeacrhResult>("/search", params);
+	}
+
+	/**
+	 * Getting hints for the entered part of the search query.
+	 * @param {string} part Part of the search query.
+	 * @returns Suggestions for the request.
+	 */
+	@log()
+	public async suggest(part: string): Promise<SearchSuggest> {
+		const params = { part };
+		return await this.request.get<SearchSuggest>("/search/suggest", params);
+	}
+
+	/**
+	 * A method for sending the current state of the track being listened to.
+	 * @param {string} track_id The unique ID of the track.
+	 * @param {string} from The name of the client from which the listening takes place.
+	 * @param {string} album_id The unique ID of the album.
+	 * @param {string} playlist_id The unique ID of the playlist, if one is being listened to.
+	 * @param {boolean} from_cache Whether the track is played from the cache.
+	 * @param {string} play_id The unique ID of the playback.
+	 * @param {number} track_length_seconds Track duration in seconds.
+	 * @param {number} total_played_seconds How many tracks were played in total in seconds.
+	 * @param {number} end_position_seconds The final value of the seconds played.
+	 * @returns OK if the request is successful.
+	 */
+	@log()
+	public async play(
+		track_id: string,
+		from: string,
+		album_id: string,
+		playlist_id: string = "",
+		from_cache: boolean = false,
+		play_id: string = "",
+		track_length_seconds: number = 0,
+		total_played_seconds: number = 0,
+		end_position_seconds: number = 0,
+	): Promise<string> {
+
+		const data = {
+			"track-id": track_id,
+			"from-cache": from_cache,
+			from: from,
+			"play-id": play_id,
+			uid: this.uid,
+			timestamp: new Date().toISOString(),
+			"track-length-seconds": track_length_seconds,
+			"total-played-seconds": total_played_seconds,
+			"end-position-seconds": end_position_seconds,
+			"album-id": album_id,
+			"playlist-id": playlist_id,
+			"client-now": new Date().toISOString(),
+		};
+
+		return await this.request.post<string>("/play-audio", null, data);
+>>>>>>> dev
 	}
 }

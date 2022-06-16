@@ -26,5 +26,5 @@ export interface PlaylistInterface {
 	cover: PlaylistCover;
 	ogImage: string;
 	tracks: Array<{ id: number; albumId: number; timestamp: string }>;
-	tags: [];
+	tags: Array<any>;
 }

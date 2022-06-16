@@ -6,6 +6,8 @@ import { log } from "../decorators/log.decorator";
 
 import { list } from "../utils";
 
+import { List, Union } from "../common";
+
 import { TrackSimilar } from "./similar.track";
 
 import { TrackSupplement } from "./supplement.track";
@@ -19,45 +21,43 @@ export class Track {
 
 	/**
 	 * Getting more information about the track.
-	 * @param {string} id The unique ID of the track.
+	 * @param {Union} id The unique ID of the track.
 	 * @returns Additional information about the track.
 	 */
 	@log()
-	public async supplement(id: string): Promise<TrackSupplement> {
+	public async supplement(id: Union): Promise<TrackSupplement> {
 		return await this.client.request.get<TrackSupplement>(`/tracks/${id}/supplement`);
 	}
 
 	/**
 	 * Getting similar tracks.
-	 * @param {string} id The unique ID of the track.
+	 * @param {Union} id The unique ID of the track.
 	 * @returns Similar tracks to the track..
 	 */
 	@log()
-	public async similar(id: string): Promise<TrackSimilar> {
+	public async similar(id: Union): Promise<TrackSimilar> {
 		return await this.client.request.get<TrackSimilar>(`/tracks/${id}/similar`);
 	}
 
 	/**
 	 * Getting the track/tracks.
-	 * @param {number | Array<number>} ids The unique identifier of the track or tracks.
+	 * @param {List} ids The unique identifier of the track or tracks.
 	 * @returns Track or Tracks.
 	 */
 	@log()
-	public async get(ids: number | Array<number>): Promise<Array<TrackInterface>> {
+	public async get(ids: List): Promise<Array<TrackInterface>> {
 		const [url, params] = list("track", ids);
 		return await this.client.request.get<Array<TrackInterface>>(url, params);
 	}
 
 	/**
 	 * Getting the track download info.
-	 * @param {number} id The unique identifier of the track or tracks.
+	 * @param {Union} id The unique identifier of the track or tracks.
 	 * @returns Track download info.
 	 */
 	@log()
-	public async downloadInfo(id: number): Promise<TrackDownloadInfo> {
-		return await this.client.request.get<TrackDownloadInfo>(
-			`/tracks/${id}/download-info`,
-		);
+	public async downloadInfo(id: Union): Promise<TrackDownloadInfo> {
+		return await this.client.request.get<TrackDownloadInfo>(`/tracks/${id}/download-info`);
 	}
 
 	/**

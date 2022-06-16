@@ -6,10 +6,11 @@ import { ChartInterface } from "./chart.landing";
 
 import { LandingInterface } from "./get.landing";
 
-import { NewPlaylistsInterface } from "./new-playlists.landing";
+import { PodcastInterface } from "./podcasts.landing";
 
 import { NewRealesesInterface } from "./new-releases.landing";
-import { PodcastInterface } from "./podcasts.landing";
+
+import { NewPlaylistsInterface } from "./new-playlists.landing";
 
 type block =
 	| "personalplaylists"
