@@ -2,9 +2,14 @@ import { YandexMusicClient } from "../../client";
 
 import { log } from "../../decorators/log.decorator";
 
+import { List } from "../../common";
+
 import { Albums } from "./albums";
+
 import { Artists } from "./artists";
+
 import { Playlists } from "./playlists";
+
 import { Tracks } from "./tracks";
 
 type action = "track" | "artist" | "playlist" | "album";
@@ -24,13 +29,13 @@ export class Likes {
   /**
    * Actions marked "I like".
    * @param {action} type The type of the object.
-   * @param {number | Array<number>} ids 
+   * @param {List} ids 
    * @param {boolean} remove If True, then removes the mark, otherwise puts.
    * @param {number} user_id Unique user ID.
    * @returns OK if the request is successful.
    */
 	@log()
-	public async action(type: action, ids: number | Array<number>, remove: boolean = false, user_id: number = this.client.uid): Promise<string> {
+	public async action(type: action, ids: List, remove: boolean = false, user_id: number = this.client.uid): Promise<string> {
 		const action = remove ? "remove" : "add-multiple";
 		const params = { [`${type}-ids`]: ids };
 		return await this.client.request.post<string>(`/users/${user_id}/likes/${type}s/${action}`, null, params);

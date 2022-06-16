@@ -7,9 +7,7 @@ export interface Genre {
 	titles: GenreTitles;
 	showInMenu: boolean;
 	color: string;
-	images?: {
-		[key: string]: string;
-	};
+	images?: { [key: string]: string };
 	radioIcon?: {
 		backgroundColor: string;
 		imageUrl: string;
@@ -26,9 +24,7 @@ interface SubGenre {
 	titles: GenreTitles;
 	showInMenu: boolean;
 	color: string;
-	images?: {
-		[key: string]: string;
-	};
+	images?: { [key: string]: string };
 	radioIcon?: {
 		backgroundColor: string;
 		imageUrl: string;

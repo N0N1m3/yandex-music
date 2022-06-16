@@ -6,6 +6,8 @@ import { Radio } from "./radio";
 
 import { Track } from "./track";
 
+import { Union } from "../common";
+
 import { RotorTracks } from "./tracks.rotor";
 
 import { RotorListInterface } from "./list.rotor";
@@ -102,11 +104,11 @@ export class Rotor {
 	 * @param {string} from Where the radio playback started from.
 	 * @param {string} batch_id Unique identifier of the batch of tracks. Returned when receiving tracks.
 	 * @param {number} totalPlayedSeconds How many seconds of the track were played before the action.
-	 * @param {string} trackId The unique ID of the track.
+	 * @param {Union} trackId The unique ID of the track.
 	 * @returns OK if the request is successful.
 	 */
 	@log()
-	public async feedback(station: string, type: FeedbackType, from: string, batch_id: string, totalPlayedSeconds: number = 0, trackId: string = "0"): Promise<string> {
+	public async feedback(station: string, type: FeedbackType, from: string, batch_id: string, totalPlayedSeconds: number = 0, trackId: Union = "0"): Promise<string> {
 		const timestamp = Date.now();
 
 		let params = {};
