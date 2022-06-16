@@ -51,4 +51,14 @@ export class Rotor {
 	public async list(): Promise<Array<RotorListInterface>> {
 		return await this.client.request.get<Array<RotorListInterface>>("/rotor/stations/list");
 	}
+
+	/**
+	 * Getting a chain of tracks of a certain station.
+	 * @param {string} station Station.
+	 * @returns Tracks.
+	 */
+	@log()
+	public async tracks(station: string): Promise<RotorTracks> {
+		return await this.client.request.get<RotorTracks>(`/rotor/station/${station}/tracks`);
+	}
 }
