@@ -1,7 +1,5 @@
 import { YandexMusicClient } from "../client";
 
-import { log } from "../decorators/log.decorator";
-
 import { DisLikes } from "./dislikes";
 
 import { Likes } from "./likes";

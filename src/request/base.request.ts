@@ -83,10 +83,10 @@ export class Requset {
 	 * @throws NotFoundError, when the page is not found
 	 * @throws NetworkError, when there are problems with the network
 	 */
-	private async wrapper<T>(type: method, url: string, data: data = null, params: data = null,): Promise<T> {
+	private async wrapper<T>(type: method, url: string, data: data = null, params: data = null): Promise<T> {
 		let response!: AxiosResponse<YandexMusicResponse<T>>;
 
-		if(params) for (let [key, value] of Object.entries(params)) params[key] = value.toString()
+		if(params) for (const [key, value] of Object.entries(params)) params[key] = value.toString()
 
 		const config: AxiosRequestConfig = {
 			headers: Object.fromEntries(this._headers.entries()),

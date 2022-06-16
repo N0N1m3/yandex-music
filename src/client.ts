@@ -133,24 +133,15 @@ export class YandexMusicClient {
 	 * @param {string} url Video uri
 	 * @returns Buffer
 	 */
-<<<<<<< HEAD
-	public async video (url: string): Promise<Buffer> {
-		return await this.request.directLink<Buffer>(url, null)
-=======
 	@log()
 	public async video(url: string): Promise<Buffer> {
 		return await this.request.directLink<Buffer>(url, null);
->>>>>>> dev
 	}
 
 	/**
 	 * Getting genres of music.
 	 * @returns Genres of music
 	 */
-<<<<<<< HEAD
-	public async genres (url: string): Promise<Array<Genre>> {
-		return await this.request.get<Array<Genre>>(url)
-=======
 	@log()
 	public async genres(url: string): Promise<Array<Genre>> {
 		return await this.request.get<Array<Genre>>(url);
@@ -233,6 +224,5 @@ export class YandexMusicClient {
 		};
 
 		return await this.request.post<string>("/play-audio", null, data);
->>>>>>> dev
 	}
 }

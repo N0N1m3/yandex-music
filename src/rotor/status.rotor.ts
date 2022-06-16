@@ -15,7 +15,7 @@ export interface RotorStatusInterface {
 		values: Array<string>;
 		default: Array<string>;
 	};
-	subscription: {};
+	subscription: Record<string, any>;
 	skipsPerHour: number;
 	stationExists: boolean;
 	plus: {
