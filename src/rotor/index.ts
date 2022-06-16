@@ -94,4 +94,33 @@ export class Rotor {
 		const data = { moodEnergy, diversity, type, language }
 		return await this.client.request.post<string>(`/rotor/station/${station}/settings3`, data);
 	}
+
+	/**
+	 * Sending a response to what is happening when listening to the radio.
+	 * @param {string} station Station
+	 * @param {FeedbackType} type Type of feedback being sent: "radioStarted", "trackStarted", "trackFinished", "skip".
+	 * @param {string} from Where the radio playback started from.
+	 * @param {string} batch_id Unique identifier of the batch of tracks. Returned when receiving tracks.
+	 * @param {number} totalPlayedSeconds How many seconds of the track were played before the action.
+	 * @param {string} trackId The unique ID of the track.
+	 * @returns OK if the request is successful.
+	 */
+	@log()
+	public async feedback(station: string, type: FeedbackType, from: string, batch_id: string, totalPlayedSeconds: number = 0, trackId: string = "0"): Promise<string> {
+		const timestamp = Date.now();
+
+		let params = {};
+
+		let data: Record<string, any> = { type, timestamp };
+
+		if (batch_id) params = { "batch-id": batch_id };
+
+		if (trackId) data = { ...data, trackId };
+
+		if (from) data = { ...data, from };
+
+		if (totalPlayedSeconds) data = { ...data, totalPlayedSeconds };
+
+		return await this.client.request.post<string>(`/rotor/station/${station}/feedback`, data, params);
+	}
 }
