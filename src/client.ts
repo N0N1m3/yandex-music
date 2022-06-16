@@ -17,6 +17,8 @@ import { Users } from "./users";
 import { Landing } from "./landing";
 import { Feed } from "./feed";
 import { Albums } from "./albums";
+import { Rotor } from "./rotor";
+import { log } from "./decorators/log.decorator";
 
 interface Config {
 	auth: {
@@ -44,11 +46,12 @@ export class YandexMusicClient {
 
 	public readonly account: Account;
 	public readonly track: Track;
-	public readonly artist: Artist
-	public readonly users: Users
+	public readonly artist: Artist;
+	public readonly users: Users;
 	public readonly landing: Landing;
 	public readonly feed: Feed;
-	public readonly albums: Albums
+	public readonly albums: Albums;
+	public readonly rotor: Rotor;
 
 	constructor(
 		public readonly token: string,
@@ -61,14 +64,16 @@ export class YandexMusicClient {
 		this.request.setLanguage(this.lang);
 
 		this.account = new Account(this);
-		this.track = new Track(this)
-		this.artist = new Artist(this)
-		this.users = new Users(this)
-		this.landing = new Landing(this)
-		this.feed = new Feed(this)
-		this.albums = new Albums(this)
+		this.track = new Track(this);
+		this.artist = new Artist(this);
+		this.users = new Users(this);
+		this.landing = new Landing(this);
+		this.feed = new Feed(this);
+		this.albums = new Albums(this);
+		this.rotor = new Rotor(this);
 	}
 
+	@log()
 	public static async get(config: Config) {
 		const { auth } = config;
 		const { username, password, token } = auth;
@@ -110,8 +115,9 @@ export class YandexMusicClient {
 	 * @param {CoverSize} size Image Size
 	 * @returns Buffer
 	 */
-	public async cover (uri: string, size: CoverSize): Promise<Buffer> {
-		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null)
+	@log()
+	public async cover(uri: string, size: CoverSize): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(`https://${uri.replace("%%", size)}`, null);
 	}
 
 	/**
@@ -119,15 +125,17 @@ export class YandexMusicClient {
 	 * @param {string} url Video uri
 	 * @returns Buffer
 	 */
-	 public async video (url: string): Promise<Buffer> {
-		return await this.request.directLink<Buffer>(url, null)
+	@log()
+	public async video(url: string): Promise<Buffer> {
+		return await this.request.directLink<Buffer>(url, null);
 	}
 
 	/**
 	 * Getting genres of music.
 	 * @returns Genres of music
 	 */
-	 public async genres (url: string): Promise<Array<Genre>> {
-		return await this.request.get<Array<Genre>>(url)
+	@log()
+	public async genres(url: string): Promise<Array<Genre>> {
+		return await this.request.get<Array<Genre>>(url);
 	}
 }
