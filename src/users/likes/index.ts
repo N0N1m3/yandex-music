@@ -35,4 +35,16 @@ export class Likes {
 		const params = { [`${type}-ids`]: ids };
 		return await this.client.request.post<string>(`/users/${user_id}/likes/${type}s/${action}`, null, params);
 	}
+
+  /**
+   * Getting objects marked "I like".
+   * @param {action} type The type of the object.
+   * @param {number} user_id Unique user ID.
+   * @param {Record<string, any>} params Parameters to be passed to the request.
+   * @returns Obj type.
+   */
+	@log()
+	public async get<T>(type: action, user_id: number = this.client.uid, params: Record<string, any> = {}): Promise<T> {
+		return await this.client.request.get<T>(`/users/${user_id}/likes/${type}s`, params);
+	}
 }
