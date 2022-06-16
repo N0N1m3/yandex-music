@@ -83,13 +83,11 @@ export class Requset {
 	 * @throws NotFoundError, when the page is not found
 	 * @throws NetworkError, when there are problems with the network
 	 */
-	private async wrapper<T>(
-		type: method,
-		url: string,
-		data: data = null,
-		params: data = null,
-	): Promise<T> {
+	private async wrapper<T>(type: method, url: string, data: data = null, params: data = null,): Promise<T> {
 		let response!: AxiosResponse<YandexMusicResponse<T>>;
+
+		if(params) for (let [key, value] of Object.entries(params)) params[key] = value.toString()
+
 		const config: AxiosRequestConfig = {
 			headers: Object.fromEntries(this._headers.entries()),
 			params: params ? new qs(params) : null,
@@ -128,7 +126,6 @@ export class Requset {
 	}
 
 	public async directLink<T>(url: string, params: data): Promise<T> {
-		console.log(url)
 		return await this.wrapper<T>("DIRECT_LINK", url, null, params)
 	}
 }
