@@ -42,4 +42,13 @@ export class Rotor {
 	public async dashboard(): Promise<RotorDashboardInterface> {
 		return await this.client.request.get<RotorDashboardInterface>("/rotor/stations/dashboard");
 	}
+
+	/**
+	 * Getting all radio stations with user settings.
+	 * @returns Stations.
+	 */
+	@log()
+	public async list(): Promise<Array<RotorListInterface>> {
+		return await this.client.request.get<Array<RotorListInterface>>("/rotor/stations/list");
+	}
 }
