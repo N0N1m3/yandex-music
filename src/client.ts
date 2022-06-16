@@ -138,4 +138,48 @@ export class YandexMusicClient {
 	public async genres(url: string): Promise<Array<Genre>> {
 		return await this.request.get<Array<Genre>>(url);
 	}
+
+	/**
+	 * A method for sending the current state of the track being listened to.
+	 * @param {string} track_id The unique ID of the track.
+	 * @param {string} from The name of the client from which the listening takes place.
+	 * @param {string} album_id The unique ID of the album.
+	 * @param {string} playlist_id The unique ID of the playlist, if one is being listened to.
+	 * @param {boolean} from_cache Whether the track is played from the cache.
+	 * @param {string} play_id The unique ID of the playback.
+	 * @param {number} track_length_seconds Track duration in seconds.
+	 * @param {number} total_played_seconds How many tracks were played in total in seconds.
+	 * @param {number} end_position_seconds The final value of the seconds played.
+	 * @returns OK if the request is successful.
+	 */
+	@log()
+	public async play(
+		track_id: string,
+		from: string,
+		album_id: string,
+		playlist_id: string = "",
+		from_cache: boolean = false,
+		play_id: string = "",
+		track_length_seconds: number = 0,
+		total_played_seconds: number = 0,
+		end_position_seconds: number = 0,
+	): Promise<string> {
+
+		const data = {
+			"track-id": track_id,
+			"from-cache": from_cache,
+			from: from,
+			"play-id": play_id,
+			uid: this.uid,
+			timestamp: new Date().toISOString(),
+			"track-length-seconds": track_length_seconds,
+			"total-played-seconds": total_played_seconds,
+			"end-position-seconds": end_position_seconds,
+			"album-id": album_id,
+			"playlist-id": playlist_id,
+			"client-now": new Date().toISOString(),
+		};
+
+		return await this.request.post<string>("/play-audio", null, data);
+	}
 }
