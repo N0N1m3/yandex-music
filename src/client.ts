@@ -39,6 +39,13 @@ interface Auth {
 
 type Status = YandexMusicResponse<AccountStatus>;
 
+interface Settings {
+	inAppProducts: Array<any>,
+	nativeProducts: Array<any>,
+	webPaymentUrl: string,
+	promoCodesEnabled: boolean
+}
+
 export class YandexMusicClient {
 	private readonly url: string = "https://api.music.yandex.net:443";
 
@@ -137,6 +144,15 @@ export class YandexMusicClient {
 	@log()
 	public async genres(url: string): Promise<Array<Genre>> {
 		return await this.request.get<Array<Genre>>(url);
+	}
+
+	/**
+	 * Receiving purchase offers. There are no required parameters.
+	 * @returns Information about the products offered if the account is valid.
+	 */
+	@log()
+	public async settings(): Promise<Settings> {
+		return await this.request.get<Settings>("/settings");
 	}
 
 	/**
