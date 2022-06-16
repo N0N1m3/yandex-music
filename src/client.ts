@@ -19,6 +19,7 @@ import { Feed } from "./feed";
 import { Albums } from "./albums";
 import { Rotor } from "./rotor";
 import { log } from "./decorators/log.decorator";
+import { SeacrhResult, SearchSuggest, SearchType } from "./search";
 
 interface Config {
 	auth: {
@@ -153,6 +154,32 @@ export class YandexMusicClient {
 	@log()
 	public async settings(): Promise<Settings> {
 		return await this.request.get<Settings>("/settings");
+	}
+
+	/**
+	 * Performing search by query and type, obtaining results.
+	 * @param {string} text The text of the request.
+	 * @param {boolean} nocorrect If аalse, the erroneous request will be corrected.
+	 * @param {SearchType} type Among what type to search (track, playlist, album, artist, user, podcast, all).
+	 * @param {number} page Page number.
+	 * @param {boolean} playlist_in_best Whether to give out playlists is the best search option.
+	 * @returns Search results.
+	 */
+	@log()
+	public async search(text: string, nocorrect: boolean = false, type: SearchType = "all", page: number = 0, playlist_in_best: boolean = true): Promise<SeacrhResult> {
+		const params = { text, nocorrect, type, page, 'playlist-in-best': playlist_in_best };
+		return await this.request.get<SeacrhResult>("/search", params);
+	}
+
+	/**
+	 * Getting hints for the entered part of the search query.
+	 * @param {string} part Part of the search query.
+	 * @returns Suggestions for the request.
+	 */
+	@log()
+	public async suggest(part: string): Promise<SearchSuggest> {
+		const params = { part };
+		return await this.request.get<SearchSuggest>("/search/suggest", params);
 	}
 
 	/**
