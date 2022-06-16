@@ -33,4 +33,13 @@ export class Rotor {
 	public async status(): Promise<RotorStatusInterface> {
 		return await this.client.request.get<RotorStatusInterface>("/rotor/account/status");
 	}
+
+	/**
+	 * Getting the recommended stations of the current user.
+	 * @returns Recommended stations.
+	 */
+	@log()
+	public async dashboard(): Promise<RotorDashboardInterface> {
+		return await this.client.request.get<RotorDashboardInterface>("/rotor/stations/dashboard");
+	}
 }
