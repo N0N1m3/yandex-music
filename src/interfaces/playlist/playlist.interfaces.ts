@@ -1,5 +1,7 @@
 import { CoverPlaylist, Owner } from "../common";
 
+import { Track } from "../tracks/tracks.interfaces";
+
 export interface PlaylistInterface {
 	owner: Owner
 	playlistUuid: string;
@@ -21,4 +23,9 @@ export interface PlaylistInterface {
 	ogImage: string;
 	tracks: Array<{ id: number; albumId: number; timestamp: string }>;
 	tags: Array<any>;
+}
+
+export interface PlaylistsRecommendations {
+	batchId: string;
+	tracks: Array<Track>;
 }
