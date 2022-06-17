@@ -27,3 +27,11 @@ export interface Owner {
 	sex: string;
 	verified: boolean;
 }
+
+export interface Video {
+	title: string;
+	cover: string;
+	embedUrl: string;
+	provider: string;
+	providerVideoId: string;
+}
