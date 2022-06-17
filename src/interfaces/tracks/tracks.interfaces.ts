@@ -1,6 +1,6 @@
-import { Album } from "../albums/albums.interface";
+import { Album } from "../albums/albums.interfaces";
 
-import { ArtistBase } from "../artists/artists.interface";
+import { ArtistBase } from "../artists/artists.interfaces";
 
 import { Lad } from "../common";
 
