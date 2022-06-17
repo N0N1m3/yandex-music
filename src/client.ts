@@ -1,25 +1,25 @@
 import { URLSearchParams as qs } from "url";
 import { AxiosInstance } from "axios";
 
+import { log } from "./decorators/log.decorator";
+
 import { baseClient, Languages, Requset } from "./request";
 
-import { AccountStatus } from "./account/status.account";
-
-import { CoverSize, YandexMusicResponse } from "./interfaces";
+import { CoverSize, YandexMusicResponse, AccountStatus } from "./interfaces";
 
 import { YandexMusicError } from "./exceptions";
 
 import { Account } from "./account";
-import { Track } from "./track";
-import { Artist } from "./artist";
-import { Genre } from "./genre";
-import { Users } from "./users";
-import { Landing } from "./landing";
-import { Feed } from "./feed";
 import { Albums } from "./albums";
+import { Artist } from "./artist";
+import { Feed } from "./feed";
+import { Genre } from "./interfaces";
+import { Landing } from "./landing";
 import { Rotor } from "./rotor";
-import { log } from "./decorators/log.decorator";
-import { SeacrhResult, SearchSuggest, SearchType } from "./search";
+import { Track } from "./track";
+import { Users } from "./users";
+
+import { SeacrhResult, SearchSuggest, SearchType } from "./interfaces";
 
 interface Config {
 	auth: {
@@ -72,13 +72,13 @@ export class YandexMusicClient {
 		this.request.setLanguage(this.lang);
 
 		this.account = new Account(this);
-		this.track = new Track(this);
-		this.artist = new Artist(this);
-		this.users = new Users(this);
-		this.landing = new Landing(this);
-		this.feed = new Feed(this);
 		this.albums = new Albums(this);
+		this.artist = new Artist(this);
+		this.feed = new Feed(this);
+		this.landing = new Landing(this);
 		this.rotor = new Rotor(this);
+		this.track = new Track(this);
+		this.users = new Users(this);
 	}
 
 	@log()
