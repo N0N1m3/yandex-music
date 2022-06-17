@@ -148,3 +148,30 @@ export interface RotorStation {
 	rupTitle: string;
 	rupDescription: string;
 }
+
+export interface RotorStatus {
+	account: {
+		now: string;
+		uid: number;
+		login: string;
+		fullName: string;
+		secondName: string;
+		firstName: string;
+		displayName: string;
+		hostedUser: boolean;
+		serviceAvailable: boolean;
+	};
+	permissions: {
+		until: string;
+		values: Array<string>;
+		default: Array<string>;
+	};
+	subscription: Record<string, any>;
+	skipsPerHour: number;
+	stationExists: boolean;
+	plus: {
+		hasPlus: boolean;
+		isTutorialCompleted: boolean;
+		migrated: boolean;
+	};
+}
