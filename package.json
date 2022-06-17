@@ -4,23 +4,20 @@
 	"author": "N0N1m3",
 	"description": "Creative and progressive Node.js framework for applications that interact with yandex music",
 	"license": "GPL-3.0-only",
-	"main": "./dist/esm/index.js",
-	"types": "./dist/types/index.d.ts",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
-		"import": "./dist/esm/index.js",
-		"require": "./dist/cjs/index.js",
-		"default": "./dist/esm/index.js"
+		"import": "./dist/index.js",
+		"require": "./dist/index.js",
+		"default": "./dist/index.js"
 	},
 	"scripts": {
 		"version": "auto-changelog -p && git add CHANGELOG.md",
-		"test": "mocha -r ts-node/register tests/**/*.spec.ts",
+		"test": "mocha --project tsconfig.spec.json -r ts-node/register tests/**/*.spec.ts",
 		"lint": "eslint src --ext .ts",
 		"lint:fix": "eslint src --ext .ts --fix",
 		"prebuild": "rimraf dist && npm run lint:fix",
-		"build": "npm run build:esm && npm run build:cjs && npm run build:types",
-		"build:esm": "tsc -p tsconfig.esm.json",
-		"build:cjs": "tsc -p tsconfig.cjs.json",
-		"build:types": "tsc -p tsconfig.types.json",
+		"build": "tsc -p tsconfig.json && node build.js",
 		"commit": "npm run lint:fix && npm run test",
 		"change": "auto-changelog"
 	},
