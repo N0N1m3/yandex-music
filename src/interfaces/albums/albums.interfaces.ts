@@ -1,8 +1,8 @@
 import { ArtistBase } from "../artists/artists.interfaces";
 
-import { Track } from "../tracks/tracks.interfaces";
+import { TrackInterface as Track } from "../tracks/tracks.interfaces";
 
-export interface Album {
+export interface AlbumInterface {
 	id: number;
 	title: string;
 	type?: string;
@@ -31,6 +31,6 @@ export interface Album {
 	};
 }
 
-export interface AlbumWithTracks extends Album {
+export interface AlbumWithTracks extends AlbumInterface {
 	volumes: Array<Track>;
 }

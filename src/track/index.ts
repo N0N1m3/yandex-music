@@ -6,9 +6,7 @@ import { log } from "../decorators/log.decorator";
 
 import { list } from "../utils";
 
-import { Track as TrackInterface } from "../interfaces";
-
-import { Union, List, TrackSimilar, TrackSupplement, TrackDownloadInfo, DownloadUrl } from "../interfaces"
+import { Union, List, TrackSimilar, TrackSupplement, TrackDownloadInfo, DownloadUrl, TrackInterface } from "../interfaces"
 
 export class Track {
 	constructor(private readonly client: YandexMusicClient) {}

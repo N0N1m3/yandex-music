@@ -1,6 +1,6 @@
 import { CoverPlaylist, Owner } from "../common";
 
-import { Track } from "../tracks/tracks.interfaces";
+import { TrackInterface as Track } from "../tracks/tracks.interfaces";
 
 export interface PlaylistInterface {
 	owner: Owner

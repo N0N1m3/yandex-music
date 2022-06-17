@@ -2,9 +2,7 @@ import { YandexMusicClient } from "../client";
 
 import { log } from "../decorators/log.decorator";
 
-import { Landing as LandingInterface } from "../interfaces";
-
-import { Chart, NewPlaylists, NewRealeses, Podcast } from "../interfaces";
+import { Chart, NewPlaylists, NewRealeses, Podcast, LandingInterface } from "../interfaces";
 
 type block =
 	| "personalplaylists"

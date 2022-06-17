@@ -1,6 +1,6 @@
-import { Artist } from "../artists/artists.interfaces";
+import { ArtistInterface as Artist } from "../artists/artists.interfaces";
 
-import { Track } from "../tracks/tracks.interfaces";
+import { TrackInterface as Track } from "../tracks/tracks.interfaces";
 
 export interface RotorSequence {
 	type: string;

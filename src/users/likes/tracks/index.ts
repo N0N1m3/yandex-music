@@ -2,14 +2,14 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List, Track } from "../../../interfaces";
+import { List, TrackInterface } from "../../../interfaces";
 
 interface TracksGet {
 	library: {
 		uid: number,
 		revision: number,
 		playlistUuid: string,
-		tracks: Array<Track>
+		tracks: Array<TrackInterface>
 	}
 }
 

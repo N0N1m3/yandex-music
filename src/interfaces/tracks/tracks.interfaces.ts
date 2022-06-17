@@ -1,10 +1,10 @@
-import { Album } from "../albums/albums.interfaces";
+import { AlbumInterface as Album } from "../albums/albums.interfaces";
 
 import { ArtistBase } from "../artists/artists.interfaces";
 
 import { Lad } from "../common";
 
-export interface Track {
+export interface TrackInterface {
 	id: string;
 	realId: string;
 	title: string;
@@ -54,7 +54,7 @@ export interface DownloadUrl {
 	host: string;
 }
 
-export type TrackSimilar = { track: Track; similarTracks: Array<Track> };
+export type TrackSimilar = { track: TrackInterface; similarTracks: Array<TrackInterface> };
 
 export interface TrackSupplement {
 	id: string;

@@ -2,7 +2,7 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List, Album } from "../../../interfaces";
+import { List, AlbumInterface } from "../../../interfaces";
 
 interface AlbumsGet {
 	id: number;
@@ -10,7 +10,7 @@ interface AlbumsGet {
 }
 
 interface AlbumsRich {
-	album: Album;
+	album: AlbumInterface;
 	timestamp: string;
 }
 

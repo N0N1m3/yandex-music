@@ -2,10 +2,10 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List, Artist } from "../../../interfaces";
+import { List, ArtistInterface } from "../../../interfaces";
 
 interface ArtistGet {
-	artist: Artist;
+	artist: ArtistInterface;
 	timestamp: string;
 }
 
@@ -40,8 +40,8 @@ export class Artists {
 	 * @returns Short artists info.
 	 */
 	@log()
-	public async get(user_id: number = this.likes.client.uid) {
-		return await this.likes.get<Array<Artist>>("artist", user_id)
+	public async get(user_id: number = this.likes.client.uid): Promise<Array<ArtistInterface>> {
+		return await this.likes.get<Array<ArtistInterface>>("artist", user_id)
 	}
 
 	/**
@@ -50,7 +50,7 @@ export class Artists {
 	 * @returns Rich artists info.
 	 */
 	@log()
-	public async with(user_id: number = this.likes.client.uid) {
+	public async with(user_id: number = this.likes.client.uid): Promise<Array<ArtistGet>> {
 		return await this.likes.get<Array<ArtistGet>>("artist", user_id, {'rich': "false"})
 	}
 }

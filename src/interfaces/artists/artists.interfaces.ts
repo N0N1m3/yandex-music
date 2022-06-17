@@ -1,6 +1,6 @@
-import { Album } from "../albums/albums.interfaces";
+import { AlbumInterface as Album } from "../albums/albums.interfaces";
 import { Cover, CoverPlaylist, SocialLink, Video } from "../common";
-import { Track } from "../tracks/tracks.interfaces";
+import { TrackInterface as Track } from "../tracks/tracks.interfaces";
 
 export interface ArtistBase {
 	id: number;
@@ -24,7 +24,7 @@ export interface ArtistRatings {
 	day: number;
 }
 
-export interface Artist extends ArtistBase {
+export interface ArtistInterface extends ArtistBase {
 	ogImage: string;
 	noPicturesFromSearch: boolean;
 	counts: ArtistCounts;
@@ -44,7 +44,7 @@ export interface ArtistPlaylist {
 	trackCount: number;
 }
 
-export interface ArtistAddon extends Artist {
+export interface ArtistAddon extends ArtistInterface {
 	likesCount: string;
 	fullNames: Array<string>;
 	description: { text: string; uri: string };

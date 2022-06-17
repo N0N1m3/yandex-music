@@ -1,4 +1,4 @@
-import { Track } from "../tracks/tracks.interfaces";
+import { TrackInterface as Track } from "../tracks/tracks.interfaces";
 
 export interface FeedHeadlines {
 	type: string;
@@ -23,7 +23,7 @@ export interface FeedDays {
 	tracksToPlayWithAds: Array<Track>;
 }
 
-export interface Feed {
+export interface FeedInterface {
 	canGetMoreEvents: boolean;
 	pumpkin: boolean;
 	isWizardPassed: boolean;

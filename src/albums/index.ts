@@ -4,7 +4,7 @@ import { log } from "../decorators/log.decorator";
 
 import { list } from "../utils";
 
-import { Union, List, Album, AlbumWithTracks } from "../interfaces"
+import { Union, List, AlbumInterface, AlbumWithTracks } from "../interfaces"
 
 export class Albums {
 	constructor(private readonly client: YandexMusicClient) {}
@@ -25,8 +25,8 @@ export class Albums {
 	 * @returns Album or Albums.
 	 */
 	@log()
-	public async get(ids: List): Promise<Array<Album>> {
+	public async get(ids: List): Promise<Array<AlbumInterface>> {
 		const [url, params] = list("album", ids);
-		return await this.client.request.get<Array<Album>>(url, params);
+		return await this.client.request.get<Array<AlbumInterface>>(url, params);
 	}
 }

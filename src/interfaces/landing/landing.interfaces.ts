@@ -1,6 +1,6 @@
 import { CoverPlaylist, Owner } from "../common";
 
-import { Track } from "../tracks/tracks.interfaces";
+import { TrackInterface as Track } from "../tracks/tracks.interfaces";
 
 export interface BlockBase {
 	type: string;
@@ -42,7 +42,7 @@ export interface LandingBlockEntities {
 	};
 }
 
-export interface Landing {
+export interface LandingInterface {
 	pumpkin: boolean;
 	contentId: string;
 	blocks: Array<LandingBlock>;
