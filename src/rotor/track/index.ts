@@ -2,7 +2,7 @@ import { Rotor } from "..";
 
 import { log } from "../../decorators/log.decorator";
 
-import { Union } from "../../common";
+import { Union } from "../../interfaces/common";
 
 export class Track {
 	constructor(private readonly rotor: Rotor) {}
