@@ -35,3 +35,21 @@ export interface Video {
 	provider: string;
 	providerVideoId: string;
 }
+
+interface InvocationInfo {
+	hostname: string;
+	"req-id": string;
+	"exec-duration-mills": string;
+}
+
+export interface YandexMusicResponse<T> {
+	invocationInfo: InvocationInfo;
+	result: T;
+}
+
+export type CoverSize =
+	| "100x100"
+	| "200x200"
+	| "400x400"
+	| "500x500"
+	| "1000x1000";
