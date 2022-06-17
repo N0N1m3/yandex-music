@@ -6,15 +6,7 @@ import { Radio } from "./radio";
 
 import { Track } from "./track";
 
-import { Union } from "../common";
-
-import { RotorTracks } from "./tracks.rotor";
-
-import { RotorListInterface } from "./list.rotor";
-
-import { RotorStatusInterface } from "./status.rotor";
-
-import { RotorDashboardInterface } from "./dashboard.rotor";
+import { RotorDashboard, RotorList, RotorStatus, RotorTracks, Union } from "../interfaces";
 
 type FeedbackType = "radioStarted" | "trackStarted" | "trackFinished" | "skip";
 
@@ -40,8 +32,8 @@ export class Rotor {
 	 * @returns User status with additional fields from the radio.
 	 */
 	@log()
-	public async status(): Promise<RotorStatusInterface> {
-		return await this.client.request.get<RotorStatusInterface>("/rotor/account/status");
+	public async status(): Promise<RotorStatus> {
+		return await this.client.request.get<RotorStatus>("/rotor/account/status");
 	}
 
 	/**
@@ -49,8 +41,8 @@ export class Rotor {
 	 * @returns Recommended stations.
 	 */
 	@log()
-	public async dashboard(): Promise<RotorDashboardInterface> {
-		return await this.client.request.get<RotorDashboardInterface>("/rotor/stations/dashboard");
+	public async dashboard(): Promise<RotorDashboard> {
+		return await this.client.request.get<RotorDashboard>("/rotor/stations/dashboard");
 	}
 
 	/**
@@ -58,8 +50,8 @@ export class Rotor {
 	 * @returns Stations.
 	 */
 	@log()
-	public async list(): Promise<Array<RotorListInterface>> {
-		return await this.client.request.get<Array<RotorListInterface>>("/rotor/stations/list");
+	public async list(): Promise<Array<RotorList>> {
+		return await this.client.request.get<Array<RotorList>>("/rotor/stations/list");
 	}
 
 	/**
@@ -78,8 +70,8 @@ export class Rotor {
 	 * @returns Tracks.
 	 */
 	@log()
-	public async info(station: string): Promise<RotorListInterface> {
-		return await this.client.request.get<RotorListInterface>(`/rotor/station/${station}/info`);
+	public async info(station: string): Promise<RotorList> {
+		return await this.client.request.get<RotorList>(`/rotor/station/${station}/info`);
 	}
 
 	/**

@@ -2,9 +2,7 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List } from "../../../common";
-
-import { PlaylistInterface } from "../../playlist/get.playlist";
+import { List, PlaylistInterface } from "../../../interfaces";
 
 export class Playlists {
 	constructor(private readonly likes: Likes) {}

@@ -2,7 +2,7 @@ import { YandexMusicClient } from "../client";
 
 import { log } from "../decorators/log.decorator";
 
-import { FeedInterface } from "./get.feed";
+import { Feed as FeedInterface } from "../interfaces";
 
 export class Feed {
 	constructor(private readonly client: YandexMusicClient) {}

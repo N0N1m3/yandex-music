@@ -1,6 +1,6 @@
 import { URLSearchParams as qs } from "url";
 
-import { List } from "./common";
+import { List } from "./interfaces";
 
 type ObjType = "artist" | "album" | "playlist" | "track";
 

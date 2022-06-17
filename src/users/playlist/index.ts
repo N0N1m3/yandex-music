@@ -1,13 +1,10 @@
 import { YandexMusicClient } from "../../client";
-import { List, Union } from "../../common";
 
 import { log } from "../../decorators/log.decorator";
 
 import { Difference } from "./diff.playlist";
 
-import { PlaylistInterface } from "./get.playlist";
-
-import { PlaylistsRecommendations } from "./recommendations.playlist";
+import {Union, List, PlaylistInterface, PlaylistsRecommendations } from "../../interfaces";
 
 type tracks = Array<{ id: string; albumId: string }>
 

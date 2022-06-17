@@ -2,9 +2,7 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List } from "../../../common";
-
-import { Artist } from "../../../interfaces";
+import { List, Artist } from "../../../interfaces";
 
 interface ArtistGet {
 	artist: Artist;

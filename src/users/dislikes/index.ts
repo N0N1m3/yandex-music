@@ -2,7 +2,7 @@ import { YandexMusicClient } from "../../client";
 
 import { log } from "../../decorators/log.decorator";
 
-import { List } from "../../common";
+import { List } from "../../interfaces";
 
 import { Tracks } from "./tracks";
 

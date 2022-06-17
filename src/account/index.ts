@@ -1,9 +1,10 @@
 import { YandexMusicClient } from "../client";
+
 import { log } from "../decorators/log.decorator";
+
 import { Languages } from "../request";
-import { AccountExperiments } from "./experiments.account";
-import { AccountSettings, AccountSettingsUpdate } from "./settings.account";
-import { AccountStatus } from "./status.account";
+
+import { AccountExperiments, AccountSettings, AccountSettingsUpdate, AccountStatus } from "../interfaces";
 
 export class Account {
 	constructor(private readonly client: YandexMusicClient) {}

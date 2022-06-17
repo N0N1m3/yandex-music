@@ -2,15 +2,9 @@ import { YandexMusicClient } from "../client";
 
 import { log } from "../decorators/log.decorator";
 
-import { ChartInterface } from "./chart.landing";
+import { Landing as LandingInterface } from "../interfaces";
 
-import { LandingInterface } from "./get.landing";
-
-import { PodcastInterface } from "./podcasts.landing";
-
-import { NewRealesesInterface } from "./new-releases.landing";
-
-import { NewPlaylistsInterface } from "./new-playlists.landing";
+import { Chart, NewPlaylists, NewRealeses, Podcast } from "../interfaces";
 
 type block =
 	| "personalplaylists"
@@ -43,8 +37,8 @@ export class Landing {
 	 * @returns Chart.
 	 */
 	@log()
-	public async chart(): Promise<ChartInterface> {
-		return await this.client.request.get<ChartInterface>(`/landing3/chart`);
+	public async chart(): Promise<Chart> {
+		return await this.client.request.get<Chart>(`/landing3/chart`);
 	}
   
   /**
@@ -52,8 +46,8 @@ export class Landing {
 	 * @returns List of new albums.
 	 */
 	@log()
-	public async releases(): Promise<NewRealesesInterface> {
-		return await this.client.request.get<NewRealesesInterface>(`/landing3/new-releases`);
+	public async releases(): Promise<NewRealeses> {
+		return await this.client.request.get<NewRealeses>(`/landing3/new-releases`);
 	}
   
   /**
@@ -61,8 +55,8 @@ export class Landing {
 	 * @returns A list of new playlists.
 	 */
 	@log()
-	public async playlists(): Promise<NewPlaylistsInterface> {
-		return await this.client.request.get<NewPlaylistsInterface>(`/landing3/new-playlists`);
+	public async playlists(): Promise<NewPlaylists> {
+		return await this.client.request.get<NewPlaylists>(`/landing3/new-playlists`);
 	}
   
   /**
@@ -70,7 +64,7 @@ export class Landing {
 	 * @returns List of podcasts.
 	 */
 	@log()
-	public async podcasts(): Promise<PodcastInterface> {
-		return await this.client.request.get<PodcastInterface>(`/landing3/podcasts`);
+	public async podcasts(): Promise<Podcast> {
+		return await this.client.request.get<Podcast>(`/landing3/podcasts`);
 	}
 }

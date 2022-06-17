@@ -2,9 +2,7 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List } from "../../../common";
-
-import { Album } from "../../../interfaces";
+import { List, Album } from "../../../interfaces";
 
 interface AlbumsGet {
 	id: number;

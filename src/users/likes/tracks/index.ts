@@ -2,9 +2,7 @@ import { Likes } from "..";
 
 import { log } from "../../../decorators/log.decorator";
 
-import { List } from "../../../common";
-
-import { Track } from "../../../interfaces";
+import { List, Track } from "../../../interfaces";
 
 interface TracksGet {
 	library: {

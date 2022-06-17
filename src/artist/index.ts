@@ -4,13 +4,9 @@ import { log } from "../decorators/log.decorator";
 
 import { list } from "../utils";
 
-import { List, Union } from "../common";
-
-import { ArtistBriefInfo } from "./brief-info.artist";
-
 import { Artist as ArtistInterface } from "../interfaces";
 
-import { ArtistDirectAlbums } from "./direct-albums.artist";
+import { Union, List, ArtistBriefInfo, ArtistDirectAlbums } from "../interfaces"
 
 export class Artist {
 	constructor(private readonly client: YandexMusicClient) {}
