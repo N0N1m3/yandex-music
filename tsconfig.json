@@ -1,6 +1,11 @@
 {
 	"compilerOptions": {
+		"module": "CommonJS",
+		"outDir": "dist",
 		"target": "ES2017",
+		"declaration": true,
+		// "emitDeclarationOnly": true,
+		"declarationMap": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"downlevelIteration": true,
@@ -11,6 +16,6 @@
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true
 	},
-	"include": ["src/**/*.ts", "**/*.spec.ts"],
-	"exclude": ["dist", "node_modules"]
+	"include": ["src/**/*.ts"],
+	"exclude": ["dist", "node_modules", "**/*.test.js"]
 }
